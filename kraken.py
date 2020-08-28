@@ -12,6 +12,8 @@ with open("tokenfile","r") as tokenfile:
     TOKEN = tokenfile.read()
 
 client = commands.Bot(command_prefix="k!")
+client.remove_command('help')
+
 #################
 ####  EVENT  ####
 #################
@@ -69,9 +71,11 @@ async def pfp(ctx,user_for_avatar: str = None):
     await ctx.send(embed=embed)
 
 @client.command()
-async def disableDM(ctx):
-    os.system("python krakenNoDM.py")
-
-
+async def help(ctx):
+    embed = discord.Embed(
+            title="help message",
+           description="k!pfp - pfp\nk!poll - poll\nk!rollDice - roll dice\nk!kraken - kraken"
+           )
+    await ctx.send(embed=embed)
 
 client.run(TOKEN, bot=True)
