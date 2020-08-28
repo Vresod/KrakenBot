@@ -61,7 +61,7 @@ async def poll(ctx, criterion):
     await msg.add_reaction(u"\U0001F44E")
 
 @client.command()
-async def pfp(ctx):
+async def pfp(ctx,user_for_avatar: str = None):
     avatar_user = ctx.author if len(ctx.message.mentions) == 0 else ctx.message.mentions[0]
     pfp_url = str(avatar_user.avatar_url)
     embed = discord.Embed(title=avatar_user.name)
