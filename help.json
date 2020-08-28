@@ -1,0 +1,22 @@
+{
+	"pfp": {
+		"syntax": ["[user_for_avatar]"],
+		"usage": "get the profile picture (pfp) of user_for_avatar or the user who requested"
+	},
+	"rollDice": {
+		"syntax": ["<number_of_dice>","<number_of_sides>"],
+		"usage": "roll a specified number of dice, with each dice having a specified number of sides"
+	},
+	"kraken": {
+		"syntax": [],
+		"usage": "print \"I am the one, the only kraken\""
+	},
+	"poll": {
+		"syntax": ["<question>"],
+		"usage": "make a poll with a specified question"
+	},
+	"help": {
+		"syntax": [],
+		"usage": "print this help message. for developers, the help message is defined in help.json."
+	}
+}
