@@ -61,8 +61,12 @@ async def poll(ctx, criterion):
     await msg.add_reaction(u"\U0001F44E")
 
 @client.command()
-async def pfp(ctx):
-    await ctx.send("wip making this better")
+async def pfp(ctx,user_for_avatar: str = None):
+    avatar_user = ctx.author if user_for_avatar == None else ctx.message.mentions[0]
+    pfp_url = str(avatar_user.avatar_url)
+    embed = discord.Embed(title=avatar_user.name)
+    embed.set_image(url=pfp_url)
+    await ctx.send(embed=embed)
 
 @client.command()
 async def disableDM(ctx):
