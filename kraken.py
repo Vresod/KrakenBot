@@ -62,7 +62,7 @@ async def poll(ctx, criterion):
 
 @client.command()
 async def pfp(ctx):
-    await ctx.send(file=discord.File('kraken.png'))
+    await ctx.send("wip making this better")
 
 @client.command()
 async def disableDM(ctx):
