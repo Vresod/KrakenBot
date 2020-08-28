@@ -1,16 +1,15 @@
 import discord
 import random
 import os
-from dotenv import load_dotenv
 from discord.ext import commands
 import asyncio
 
-################
-####  ENV   ####
-####  VARS  ####
-################
-load_dotenv()
-TOKEN = os.getenv('TOKEN_AUTH')
+##################
+####  TOKEN   ####
+####  LOADING ####
+##################
+with open("tokenfile","r") as tokenfile:
+    TOKEN = tokenfile.read()
 
 client = commands.Bot(command_prefix="k!")
 #################
