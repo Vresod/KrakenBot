@@ -1,6 +1,7 @@
 import discord
 import random
 import os
+import json
 from discord.ext import commands
 import asyncio
 
@@ -11,9 +12,21 @@ import asyncio
 with open("tokenfile","r") as tokenfile:
     TOKEN = tokenfile.read()
 
+##################
+####  GENERIC ####
+####  LOADING ####
+##################
 client = commands.Bot(command_prefix="k!")
 client.remove_command('help')
-
+with open("help.json","r") as helpfile:
+    jsonhelp = json.loads(helpfile.read())
+description = ""
+empty_string = " "
+for command in jsonhelp:
+    syntax = jsonhelp[command]["syntax"]
+    usage = jsonhelp[command]["usage"]
+    description += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
+help_embed = discord.Embed(title="Help",description=description)
 #################
 ####  EVENT  ####
 #################
@@ -72,10 +85,6 @@ async def pfp(ctx,user_for_avatar: str = None):
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(
-            title="help message",
-           description="k!pfp - pfp\nk!poll - poll\nk!rollDice - roll dice\nk!kraken - kraken"
-           )
-    await ctx.send(embed=embed)
+    await ctx.send(embed=help_embed)
 
 client.run(TOKEN, bot=True)
