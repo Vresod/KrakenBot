@@ -22,14 +22,15 @@ with open("help.json","r") as helpfile:
     jsonhelp = json.loads(helpfile.read())
 empty_string = " "
 help_embed = discord.Embed(title="Help")
-description = ""
 help_message_list = []
 for category in jsonhelp:
+    field_text = ""
     for command in jsonhelp[category]:
         syntax = jsonhelp[category][command]["syntax"]
         usage = jsonhelp[category][command]["usage"]
-        description += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
-    help_embed.add_field(name=category,value=description)
+        field_text += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
+    help_message_list.append(field_text)
+    help_embed.add_field(name=category,value=help_message_list[len(help_message_list) - 1])
 
 #################
 ####  EVENT  ####
