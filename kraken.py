@@ -20,13 +20,17 @@ client = commands.Bot(command_prefix="k!")
 client.remove_command('help')
 with open("help.json","r") as helpfile:
     jsonhelp = json.loads(helpfile.read())
-description = ""
 empty_string = " "
-for command in jsonhelp:
-    syntax = jsonhelp[command]["syntax"]
-    usage = jsonhelp[command]["usage"]
-    description += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
-help_embed = discord.Embed(title="Help",description=description)
+help_embed = discord.Embed(title="Help")
+description = ""
+help_message_list = []
+for category in jsonhelp:
+    for command in jsonhelp[category]:
+        syntax = jsonhelp[category][command]["syntax"]
+        usage = jsonhelp[category][command]["usage"]
+        description += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
+    help_embed.add_field(name=category,value=description)
+
 #################
 ####  EVENT  ####
 #################
