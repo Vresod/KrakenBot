@@ -1,3 +1,9 @@
+"""
+This is basically kraken.py but without DM'ing people once they join
+It's handy for when it gets annoying.
+"""
+
+# Imports
 import discord
 import random
 import os
@@ -5,17 +11,16 @@ import json
 from discord.ext import commands
 import asyncio
 
-##################
-####  TOKEN   ####
-####  LOADING ####
-##################
+
+# token loading
+# load the token
 with open("tokenfile","r") as tokenfile:
     TOKEN = tokenfile.read()
 
-##################
-####  GENERIC ####
-####  LOADING ####
-##################
+
+# Loading all the bots information
+# this includes the help file (help.json) and
+# the prefix of the bot
 client = commands.Bot(command_prefix="k!")
 client.remove_command('help')
 with open("help.json","r") as helpfile:
@@ -27,29 +32,24 @@ for command in jsonhelp:
     usage = jsonhelp[command]["usage"]
     description += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
 help_embed = discord.Embed(title="Help",description=description)
-#################
-####  EVENT  ####
-#################
+
+# Events
+# Usually discord bots handle certain events
+# when certain things happen
+# such as a member joining, or a member leaving.
+
+# here we are ONLY going to put the on_ready
+# which is basically when the bot is ready
 
 @client.event
 async def on_ready():
-    print("The Kraken has awaken")
-    game = discord.Game("in the ocean")
+    print("The Kraken has awaken, and will not disturb")
+    game = discord.Game("without interrupting you")
     await client.change_presence(status=discord.Status.online, activity=game)
 
 
-
-@client.event
-async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, I am the kraken.'
-    )
-
-
-#####################
-####  COMAMANDS  ####
-#####################
+# Commands
+# what gets run in the discord chat channels are basically these things
 
 @client.command()
 async def kraken(ctx):
@@ -99,21 +99,19 @@ async def git(ctx):
 
 
 @client.command()
-async def disableDM(ctx):
+async def enableDM(ctx):
     warn_embed = discord.Embed(
         title="WARNING!",
-        description="Kraken will NOW STOP DMing everyone who joins this guild"
+        description="Kraken will NOW DM everyone who joins this guild"
     )
     await ctx.send(embed=warn_embed)
-    os.system("bash disableDM.sh") # run a shell script
+    os.system("bash enableDM.sh") # run a shell script
     
 @client.command()
-async def enableDM(ctx):
-    await ctx.send("....you can't re-enable something, try `k!disableDM`")
-    return
+async def disableDM(ctx):
+    await ctx.send("....you can't re-disable something, try `k!enableDM`")
 
 
-###########
-# RUN BOT #
-###########
+
+# here we can run the bot using our token
 client.run(TOKEN, bot=True)

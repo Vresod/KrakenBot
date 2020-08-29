@@ -18,5 +18,9 @@
 	"help": {
 		"syntax": [],
 		"usage": "print this help message. for developers, the help message is defined in help.json."
+	},
+	"git": {
+		"syntax": [],
+		"usage": "Show GitHub repository"
 	}
 }
