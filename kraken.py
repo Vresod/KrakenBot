@@ -79,10 +79,10 @@ async def rollDice(ctx, number_of_dice: int, number_of_sides: int):
 
 
 @client.command()
-async def poll(ctx, criterion):
+async def poll(ctx, *criterion):
     embed = discord.Embed(
         title="Poll",
-        description=f"{criterion}"
+        description=f"{empty_string.join(criterion)}"
     )
     msg = await ctx.send(embed=embed)
     emojis = [u"\U0001F44D", u"\U0001F937", u"\U0001F44E"]
