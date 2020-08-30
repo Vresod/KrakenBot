@@ -4,6 +4,7 @@ import os
 import json
 from asyncio import sleep as asyncsleep
 from discord.ext import commands
+from subprocess import check_output
 
 ##################
 ####  TOKEN   ####
@@ -32,6 +33,14 @@ for category in jsonhelp:
     help_message_list.append(field_text)
     help_embed.add_field(
         name=category, value=help_message_list[len(help_message_list) - 1])
+
+out = check_output("git log -5 --pretty=%B".split(" "))
+log = out.decode("utf-8").split("\n")
+log_2 = str(log)
+embed_change = discord.Embed(
+    title="Changelog",
+    description="\n".join(log)
+)
 
 #################
 ####  EVENT  ####
@@ -165,6 +174,11 @@ async def echo(ctx,*text):
     await ctx.message.add_reaction(u"\U00002705")
     await asyncsleep(3)
     await ctx.message.delete()
+
+@client.command()
+async def changelog(ctx, ver = None):
+    await ctx.send(embed=embed_change)
+
 
 ###########
 # RUN BOT #
