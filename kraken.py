@@ -3,7 +3,6 @@ import random
 import os
 import json
 from discord.ext import commands
-import asyncio
 
 ##################
 ####  TOKEN   ####
