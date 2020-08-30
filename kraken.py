@@ -127,22 +127,26 @@ async def git(ctx):
 
 @client.command()
 async def disableDM(ctx):
-    warn_embed = discord.Embed(
-        title="WARNING!",
-        description="Kraken will NOW STOP DMing everyone who joins this guild"
-    )
-    await ctx.send(embed=warn_embed)
-    DMsEnabled = False
+    if DMsEnabled == False: 
+        return
+    else:
+        warn_embed = discord.Embed(
+            title="WARNING!",
+            description="Kraken will NOW STOP DMing everyone who joins this guild"
+        )
+        await ctx.send(embed=warn_embed)    
 
 
 @client.command()
 async def enableDM(ctx):
-    warn_embed = discord.Embed(
-        title="WARNING!",
-        description="Kraken will NOW DM everyone who joins this guild"
-    )
-    await ctx.send(embed=warn_embed)
-    DMsEnabled = True
+    if DMsEnabled == True:
+        return
+    else:
+        warn_embed = discord.Embed(
+            title="WARNING!",
+            description="Kraken will NOW DM everyone who joins this guild"
+        )
+        await ctx.send(embed=warn_embed)
 
 @client.command()
 async def kick(ctx,user,reason = None):
