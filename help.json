@@ -52,6 +52,10 @@
 		"git": {
 			"syntax": [],
 			"usage": "Show GitHub repository"
+		},
+		"changelog": {
+			"syntax": [],
+			"usage": "show changelog (directly from git!)"
 		}
 	}
 }
