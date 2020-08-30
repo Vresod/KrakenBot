@@ -43,9 +43,11 @@ async def on_ready():
     print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=0&scope=bot")
 
 
-
+DMsEnabled = True
 @client.event
 async def on_member_join(member):
+    if(DMsEnabled == False):
+        return
     await member.create_dm()
     await member.dm_channel.send(
         f'Hi {member.name}, I am the kraken.'
@@ -110,12 +112,16 @@ async def disableDM(ctx):
         description="Kraken will NOW STOP DMing everyone who joins this guild"
     )
     await ctx.send(embed=warn_embed)
-    os.system("bash disableDM.sh") # run a shell script
+    DMsEnabled = False
     
 @client.command()
 async def enableDM(ctx):
-    await ctx.send("....you can't re-enable something, try `k!disableDM`")
-    return
+    warn_embed = discord.Embed(
+        title="WARNING!",
+        description="Kraken will NOW DM everyone who joins this guild"
+    )
+    await ctx.send(embed=warn_embed)
+    DMsEnabled = True
 
 
 ###########
