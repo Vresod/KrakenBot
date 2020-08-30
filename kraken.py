@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Imports used for kraken bot to work properly
 import discord
 import random
