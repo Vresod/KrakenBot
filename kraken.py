@@ -160,8 +160,8 @@ async def ban(ctx,user,reason = None):
     await ctx.send(embed=successEmbed)
 
 @client.command()
-async def echo(ctx,text):
-    await ctx.send(f"{text}")
+async def echo(ctx,*text):
+    await ctx.send(f"{empty_string.join(text)}")
     await ctx.message.add_reaction(u"\U00002705")
     await asyncsleep(3)
     await ctx.message.delete()
