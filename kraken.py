@@ -1,3 +1,4 @@
+# Imports used for kraken bot to work properly
 import discord
 import random
 import os
@@ -10,6 +11,8 @@ from subprocess import check_output
 ####  TOKEN   ####
 ####  LOADING ####
 ##################
+
+# Here we just load the token
 with open("tokenfile", "r") as tokenfile:
     TOKEN = tokenfile.read()
 
@@ -17,8 +20,15 @@ with open("tokenfile", "r") as tokenfile:
 ####  GENERIC ####
 ####  LOADING ####
 ##################
+
+# Set prefix
 client = commands.Bot(command_prefix="k!")
+
+# Remove help command
 client.remove_command('help')
+
+# Help command specification
+# (declaring everything needed for the help command)
 with open("help.json", "r") as helpfile:
     jsonhelp = json.loads(helpfile.read())
 empty_string = " "
@@ -34,6 +44,10 @@ for category in jsonhelp:
     help_embed.add_field(
         name=category, value=help_message_list[len(help_message_list) - 1])
 
+
+# Changelog code.
+# this little snippet gets the 5 latest commits of this repo
+# and puts them in an embed
 out = check_output("git log -5 --pretty=%B".split(" "))
 log = out.decode("utf-8").split("\n")
 log_2 = str(log)
@@ -47,21 +61,27 @@ embed_change = discord.Embed(
 #################
 
 
+# This event triggers when the bot is ready
+# It sends a message to the console saying that the bot has awoken
+# and also sends the invite link
 @client.event
 async def on_ready():
     print("The Kraken has awaken")
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
-    print(
-        f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=8&scope=bot")
+    print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=8&scope=bot")
 
-
+# variable for if DMs are enabled or not
 DMsEnabled = True
 
 
+# This event checks whether or not
+# DMsEnabled is true or false
+# if it is, then it can dm everyone who joins it
+# if it isn't then it wont do anything
 @client.event
 async def on_member_join(member):
-    if(DMsEnabled == False):
+    if DMsEnabled == False:
         return
     await member.create_dm()
     await member.dm_channel.send(
@@ -73,11 +93,15 @@ async def on_member_join(member):
 ####  COMAMANDS  ####
 #####################
 
+# like a ping command, but for kraken, and is also kraken
+# based
 @client.command()
 async def kraken(ctx):
     await ctx.send("I am the one, the only kraken")
 
-
+# this command is basically making you able to roll some die
+# example:
+# k!rollDice 3 3
 @client.command()
 async def rollDice(ctx, number_of_dice: int, number_of_sides: int):
     dice = [
@@ -86,7 +110,10 @@ async def rollDice(ctx, number_of_dice: int, number_of_sides: int):
     ]
     await ctx.send(', '.join(dice))
 
-
+# Want to make a poll?
+# Well now you can.
+# Here's an example:
+# k!poll do you want soup?
 @client.command()
 async def poll(ctx, *criterion):
     embed = discord.Embed(
@@ -98,7 +125,7 @@ async def poll(ctx, *criterion):
     for emoji in emojis:
         await msg.add_reaction(emoji)
 
-
+# profile picture command
 @client.command()
 async def pfp(ctx, user_for_avatar: str = None):
     avatar_user = ctx.author if len(
@@ -108,7 +135,7 @@ async def pfp(ctx, user_for_avatar: str = None):
     embed.set_image(url=pfp_url)
     await ctx.send(embed=embed)
 
-
+# help command
 @client.command()
 async def help(ctx):
     await ctx.send(embed=help_embed)
@@ -125,6 +152,8 @@ async def git(ctx):
     await ctx.send(embed=git_embed)
 
 
+
+# disables dms
 @client.command()
 async def disableDM(ctx):
     if DMsEnabled == False: 
@@ -137,6 +166,7 @@ async def disableDM(ctx):
         await ctx.send(embed=warn_embed)    
 
 
+# enables dms
 @client.command()
 async def enableDM(ctx):
     if DMsEnabled == True:
@@ -148,6 +178,7 @@ async def enableDM(ctx):
         )
         await ctx.send(embed=warn_embed)
 
+# kicks the user specified and also dm's them
 @client.command()
 async def kick(ctx,user,reason = None):
     successEmbed = discord.Embed(title="Kick",description=f"kicked {ctx.message.mentions[0].mention}\nServer:{ctx.guild.name}\nReason: {reason}")
@@ -160,6 +191,8 @@ async def kick(ctx,user,reason = None):
     await ctx.message.mentions[0].kick(reason=f"{reason}")
     await ctx.send(embed=successEmbed)
 
+
+# bans the user and also dm's them
 @client.command()
 async def ban(ctx,user,reason = None):
     successEmbed = discord.Embed(title="Ban",description=f"banned {ctx.message.mentions[0].mention}\nServer: {ctx.guild.name}\nReason: {reason}")
@@ -172,6 +205,8 @@ async def ban(ctx,user,reason = None):
     await ctx.message.mentions[0].ban(reason=f"{reason}")
     await ctx.send(embed=successEmbed)
 
+# echos what the user said
+# deletes the command after 3 seconds
 @client.command()
 async def echo(ctx,*text):
     await ctx.send(f"{empty_string.join(text)}")
@@ -179,6 +214,8 @@ async def echo(ctx,*text):
     await asyncsleep(3)
     await ctx.message.delete()
 
+
+# the changelog command.
 @client.command()
 async def changelog(ctx, ver = None):
     await ctx.send(embed=embed_change)
@@ -187,4 +224,6 @@ async def changelog(ctx, ver = None):
 ###########
 # RUN BOT #
 ###########
+
+# finally, we can run the bot.
 client.run(TOKEN, bot=True)
