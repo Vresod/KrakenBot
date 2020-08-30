@@ -41,6 +41,7 @@ async def on_ready():
     print("The Kraken has awaken")
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
+    print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=0&scope=bot")
 
 
 
