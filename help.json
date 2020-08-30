@@ -32,6 +32,12 @@
 				"[reason]"
 			],
 			"usage": "ban <user> if the person running the command has the correct permissions"
+		},
+		"echo": {
+			"syntax": [
+				"<text>"
+			],
+			"usage": "echos <text>"
 		}
 	},
 	"Information": {

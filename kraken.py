@@ -2,6 +2,7 @@ import discord
 import random
 import os
 import json
+from asyncio import sleep as asyncsleep
 from discord.ext import commands
 
 ##################
@@ -157,6 +158,14 @@ async def ban(ctx,user,reason = None):
     await ctx.message.mentions[0].dm_channel.send(embed=successEmbed)
     await ctx.message.mentions[0].ban(reason=f"{reason}")
     await ctx.send(embed=successEmbed)
+
+@client.command()
+async def echo(ctx,text):
+    await ctx.send(f"{text}")
+    await ctx.message.add_reaction(u"\U00002705")
+    await asyncsleep(3)
+    await ctx.message.delete()
+
 ###########
 # RUN BOT #
 ###########
