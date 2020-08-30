@@ -43,7 +43,7 @@ async def on_ready():
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
     print(
-        f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=0&scope=bot")
+        f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=8&scope=bot")
 
 
 DMsEnabled = True
@@ -134,7 +134,29 @@ async def enableDM(ctx):
     await ctx.send(embed=warn_embed)
     DMsEnabled = True
 
+@client.command()
+async def kick(ctx,user,reason = None):
+    successEmbed = discord.Embed(title="Kick",description=f"kicked {ctx.message.mentions[0].mention}\nServer:{ctx.guild.name}\nReason: {reason}")
+    failureEmbed = discord.Embed(title="Failed to kick",description="You do not have the correct permissions to kick.")
+    if(not ctx.message.author.permissions_in(ctx.channel).kick_members):
+        await ctx.send(embed=failureEmbed)
+        return
+    await ctx.message.mentions[0].create_dm()
+    await ctx.message.mentions[0].dm_channel.send(embed=successEmbed)
+    await ctx.message.mentions[0].kick(reason=f"{reason}")
+    await ctx.send(embed=successEmbed)
 
+@client.command()
+async def ban(ctx,user,reason = None):
+    successEmbed = discord.Embed(title="Ban",description=f"banned {ctx.message.mentions[0].mention}\nServer: {ctx.guild.name}\nReason: {reason}")
+    failureEmbed = discord.Embed(title="Failed to ban",description="You do not have the correct permissions to ban.")
+    if(not ctx.message.author.permissions_in(ctx.channel).ban_members):
+        await ctx.send(embed=failureEmbed)
+        return
+    await ctx.message.mentions[0].create_dm()
+    await ctx.message.mentions[0].dm_channel.send(embed=successEmbed)
+    await ctx.message.mentions[0].ban(reason=f"{reason}")
+    await ctx.send(embed=successEmbed)
 ###########
 # RUN BOT #
 ###########

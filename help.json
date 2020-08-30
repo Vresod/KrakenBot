@@ -18,6 +18,20 @@
 				"[user_for_avatar]"
 			],
 			"usage": "get the profile picture (pfp) of user_for_avatar or the user who requested"
+		},
+		"kick": {
+			"syntax": [
+				"<user>",
+				"[reason]"
+			],
+			"usage": "kick <user> if the person running the command has the correct permissions"
+		},
+		"ban": {
+			"syntax": [
+				"<user>",
+				"[reason]"
+			],
+			"usage": "ban <user> if the person running the command has the correct permissions"
 		}
 	},
 	"Information": {
