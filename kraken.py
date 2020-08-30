@@ -8,7 +8,7 @@ from discord.ext import commands
 ####  TOKEN   ####
 ####  LOADING ####
 ##################
-with open("tokenfile","r") as tokenfile:
+with open("tokenfile", "r") as tokenfile:
     TOKEN = tokenfile.read()
 
 ##################
@@ -17,7 +17,7 @@ with open("tokenfile","r") as tokenfile:
 ##################
 client = commands.Bot(command_prefix="k!")
 client.remove_command('help')
-with open("help.json","r") as helpfile:
+with open("help.json", "r") as helpfile:
     jsonhelp = json.loads(helpfile.read())
 empty_string = " "
 help_embed = discord.Embed(title="Help")
@@ -29,21 +29,26 @@ for category in jsonhelp:
         usage = jsonhelp[category][command]["usage"]
         field_text += f"**{command}**: k!{command} {empty_string.join(syntax)}\n*{usage}*\n"
     help_message_list.append(field_text)
-    help_embed.add_field(name=category,value=help_message_list[len(help_message_list) - 1])
+    help_embed.add_field(
+        name=category, value=help_message_list[len(help_message_list) - 1])
 
 #################
 ####  EVENT  ####
 #################
+
 
 @client.event
 async def on_ready():
     print("The Kraken has awaken")
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
-    print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=0&scope=bot")
+    print(
+        f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=0&scope=bot")
 
 
 DMsEnabled = True
+
+
 @client.event
 async def on_member_join(member):
     if(DMsEnabled == False):
@@ -66,33 +71,38 @@ async def kraken(ctx):
 @client.command()
 async def rollDice(ctx, number_of_dice: int, number_of_sides: int):
     dice = [
-            str(random.choice(range(1, number_of_sides + 1)))
-            for _ in range(number_of_dice)
+        str(random.choice(range(1, number_of_sides + 1)))
+        for _ in range(number_of_dice)
     ]
     await ctx.send(', '.join(dice))
+
 
 @client.command()
 async def poll(ctx, criterion):
     embed = discord.Embed(
-            title="Poll",
-            description=f"{criterion}"
-        )
+        title="Poll",
+        description=f"{criterion}"
+    )
     msg = await ctx.send(embed=embed)
     emojis = [u"\U0001F44D", u"\U0001F937", u"\U0001F44E"]
     for emoji in emojis:
         await msg.add_reaction(emoji)
 
+
 @client.command()
-async def pfp(ctx,user_for_avatar: str = None):
-    avatar_user = ctx.author if len(ctx.message.mentions) == 0 else ctx.message.mentions[0]
+async def pfp(ctx, user_for_avatar: str = None):
+    avatar_user = ctx.author if len(
+        ctx.message.mentions) == 0 else ctx.message.mentions[0]
     pfp_url = str(avatar_user.avatar_url)
     embed = discord.Embed(title=avatar_user.name)
     embed.set_image(url=pfp_url)
     await ctx.send(embed=embed)
 
+
 @client.command()
 async def help(ctx):
     await ctx.send(embed=help_embed)
+
 
 @client.command()
 async def git(ctx):
@@ -113,7 +123,8 @@ async def disableDM(ctx):
     )
     await ctx.send(embed=warn_embed)
     DMsEnabled = False
-    
+
+
 @client.command()
 async def enableDM(ctx):
     warn_embed = discord.Embed(
