@@ -76,9 +76,9 @@ async def poll(ctx, criterion):
             description=f"{criterion}"
         )
     msg = await ctx.send(embed=embed)
-    await msg.add_reaction(u"\U0001F44D")
-    await msg.add_reaction(u"\U0001F937")
-    await msg.add_reaction(u"\U0001F44E")
+    emojis = [u"\U0001F44D", u"\U0001F937", u"\U0001F44E"]
+    for emoji in emojis:
+        await msg.add_reaction(emoji)
 
 @client.command()
 async def pfp(ctx,user_for_avatar: str = None):
