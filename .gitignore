@@ -1,1 +1,4 @@
 tokenfile
+
+# use this file as a template for running tests
+runTest.sh
