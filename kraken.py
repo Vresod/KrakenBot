@@ -9,6 +9,9 @@ from asyncio import sleep as asyncsleep
 from discord.ext import commands
 from subprocess import check_output
 from sys import argv as cliargs
+from datetime import datetime
+
+t0 = datetime.now()
 
 prefix = ""
 for parameter in cliargs:
@@ -19,6 +22,7 @@ for parameter in cliargs:
         prefix = x[1]
 prefix = "k!" if prefix == "" else prefix 
 print(prefix)
+
 ##################
 ####  TOKEN   ####
 ####  LOADING ####
@@ -245,6 +249,17 @@ async def echo(ctx,*text):
 async def changelog(ctx, ver = None):
     await ctx.send(embed=embed_change)
 
+
+# uptime command
+@client.command()
+async def uptime(ctx):
+    uptim = datetime.now() - t0
+    str_uptim = str(uptim).split(".")
+    time_embed = discord.Embed(
+        title="Uptime",
+        description=f"**{str_uptim[0]}**"
+    )
+    await ctx.send(embed=time_embed)
 
 ###########
 # RUN BOT #
