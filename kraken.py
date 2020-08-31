@@ -8,7 +8,17 @@ import json
 from asyncio import sleep as asyncsleep
 from discord.ext import commands
 from subprocess import check_output
+from sys import argv as cliargs
 
+prefix = ""
+for parameter in cliargs:
+    if parameter == "-p":
+        prefix = cliargs[cliargs.index(parameter) + 1]
+    elif parameter.startswith("--prefix"):
+        x = parameter.split("=")
+        prefix = x[1]
+prefix = "k!" if prefix == "" else prefix 
+print(prefix)
 ##################
 ####  TOKEN   ####
 ####  LOADING ####
@@ -24,7 +34,7 @@ with open("tokenfile", "r") as tokenfile:
 ##################
 
 # Set prefix
-client = commands.Bot(command_prefix="k!")
+client = commands.Bot(command_prefix=prefix)
 
 # Remove help command
 client.remove_command('help')
