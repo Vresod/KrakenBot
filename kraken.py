@@ -50,12 +50,19 @@ for category in jsonhelp:
 # Changelog code.
 # this little snippet gets the 5 latest commits of this repo
 # and puts them in an embed
-out = check_output("git log -5 --pretty=%B".split(" "))
+out = check_output("git log -5 --pretty=%s|%h".split(" "))
 log = out.decode("utf-8").split("\n")
-log_2 = str(log)
+log.remove('')
+logs = []
+for cmessage in log:
+    logs.append(cmessage.split("|"))
+logmsg = ""
+for commitpair in logs:
+    logmsg += f"[{commitpair[0]}](https://github.com/AVCADO/KrakenBot/commit/{commitpair[1]})\n"
+
 embed_change = discord.Embed(
     title="Changelog",
-    description="\n".join(log)
+    description=logmsg
 )
 
 #################
