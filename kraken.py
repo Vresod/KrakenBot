@@ -8,6 +8,11 @@ import json
 from asyncio import sleep as asyncsleep
 from discord.ext import commands
 from subprocess import check_output
+from time import sleep
+import time
+from datetime import datetime
+
+t0 = datetime.now()
 
 ##################
 ####  TOKEN   ####
@@ -235,6 +240,17 @@ async def echo(ctx,*text):
 async def changelog(ctx, ver = None):
     await ctx.send(embed=embed_change)
 
+
+# uptime command
+@client.command()
+async def uptime(ctx):
+    uptim = datetime.now() - t0
+    str_uptim = str(uptim).split(".")
+    time_embed = discord.Embed(
+        title="Uptime",
+        description=f"**{str_uptim[0]}**"
+    )
+    await ctx.send(embed=time_embed)
 
 ###########
 # RUN BOT #
