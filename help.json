@@ -15,9 +15,9 @@
 		},
 		"pfp": {
 			"syntax": [
-				"[user_for_avatar]"
+				"[*user_for_avatar]"
 			],
-			"usage": "get the profile picture (pfp) of user_for_avatar or the user who requested"
+			"usage": "get the profile picture (pfp) of user_for_avatar for however many users are specified or the user who requested"
 		},
 		"kick": {
 			"syntax": [
@@ -55,7 +55,7 @@
 		},
 		"changelog": {
 			"syntax": [],
-			"usage": "show changelog (directly from git!)"
+			"usage": "show changelog (directly from git!). includes links to commits on github"
 		}
 	}
 }

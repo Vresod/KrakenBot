@@ -136,13 +136,19 @@ async def poll(ctx, *criterion):
 
 # profile picture command
 @client.command()
-async def pfp(ctx, user_for_avatar: str = None):
-    avatar_user = ctx.author if len(
-        ctx.message.mentions) == 0 else ctx.message.mentions[0]
-    pfp_url = str(avatar_user.avatar_url)
-    embed = discord.Embed(title=avatar_user.name)
-    embed.set_image(url=pfp_url)
-    await ctx.send(embed=embed)
+async def pfp(ctx, *user_for_avatar):
+    avatar_users = []
+    pfp_urls = []
+    for user in ctx.message.mentions:
+        avatar_users.append(user)
+    #avatar_user = ctx.author if len(ctx.message.mentions) == 0 else ctx.message.mentions[0]
+    avatar_users = [ctx.author] if len(avatar_users) == 0 else avatar_users
+    for user in avatar_users:
+        pfp_urls.append(str(user.avatar_url))
+    for url in pfp_urls:
+        embed = discord.Embed(title=avatar_users[pfp_urls.index(url)].name)
+        embed.set_image(url=url)
+        await ctx.send(embed=embed)
 
 # help command
 @client.command()
