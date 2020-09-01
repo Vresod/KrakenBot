@@ -38,6 +38,14 @@
 				"<text>"
 			],
 			"usage": "echos <text>"
+		},
+		"disableDM": {
+			"syntax": [],
+			"usage": "disables DMs when someone joins the server"
+		},
+		"enableDM": {
+			"syntax": [],
+			"usage": "enables DMs when someone joins the server"
 		}
 	},
 	"Information": {
@@ -56,6 +64,10 @@
 		"changelog": {
 			"syntax": [],
 			"usage": "show changelog (directly from git!). includes links to commits on github"
+		},
+		"uptime": {
+			"syntax": [],
+			"usage": "prints how long the bot has been running in its current instance"
 		}
 	}
 }
