@@ -62,7 +62,7 @@
 			"usage": "Show GitHub repository"
 		},
 		"changelog": {
-			"syntax": [],
+			"syntax": ["[number of commits]"],
 			"usage": "show changelog (directly from git!). includes links to commits on github"
 		},
 		"uptime": {

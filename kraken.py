@@ -246,7 +246,22 @@ async def echo(ctx,*text):
 
 # the changelog command.
 @client.command()
-async def changelog(ctx, ver = None):
+async def changelog(ctx, num=5):
+    out = check_output(f"git log -{num} --pretty=%s|%h".split(" "))
+    log = out.decode("utf-8").split("\n")
+    log.remove('')
+    logs = []
+    for cmessage in log:
+        logs.append(cmessage.split("|"))
+    logmsg = ""
+    for commitpair in logs:
+        logmsg += f"[{commitpair[0]}](https://github.com/AVCADO/KrakenBot/commit/{commitpair[1]})\n"
+    if len(logmsg) > 2048:
+        logmsg = "message too long; go to [https://github.com/AVCADO/KrakenBot/commits/master](https://github.com/AVCADO/KrakenBot/commits/master)"
+    embed_change = discord.Embed(
+        title="Changelog",
+        description=logmsg
+    )
     await ctx.send(embed=embed_change)
 
 
