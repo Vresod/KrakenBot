@@ -21,7 +21,7 @@ for parameter in cliargs:
         x = parameter.split("=")
         prefix = x[1]
 prefix = "k!" if prefix == "" else prefix 
-print(prefix)
+print(f"prefix:{prefix}")
 
 ##################
 ####  TOKEN   ####
@@ -260,6 +260,27 @@ async def uptime(ctx):
         description=f"**{str_uptim[0]}**"
     )
     await ctx.send(embed=time_embed)
+
+# converts text from latin alphabet to emoji
+@client.command()
+async def emojify(ctx,*text):
+    str_text = " ".join(text)
+    emojified_text = ""
+    for letter in str_text:
+        if not letter in list("abcdefghijklmnopqrstuvwxyz"):
+            emojified_text += f"{letter}"
+            continue
+        emojified_text += f":regional_indicator_{letter.lower()}:"
+    await ctx.send(emojified_text)
+# inserts clap emojis between every word
+@client.command()
+async def clapify(ctx, *text):
+    if len(text) == 1:
+        str_text = "".join(text)
+        str_text = f"{str_text} :clap:"
+    else:
+        str_text = " :clap: ".join(text)
+    await ctx.send(str_text)
 
 ###########
 # RUN BOT #

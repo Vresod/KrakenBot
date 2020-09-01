@@ -69,5 +69,15 @@
 			"syntax": [],
 			"usage": "prints how long the bot has been running in its current instance"
 		}
+	},
+	"Fun": {
+		"emojify": {
+			"syntax": ["<text>"],
+			"usage": "turns text into emojis"
+		},
+		"clapify": {
+			"syntax": ["<text>"],
+			"usage": "put :clap: emojis around text"
+		}
 	}
 }
