@@ -279,7 +279,7 @@ async def uptime(ctx):
 # converts text from latin alphabet to emoji
 @client.command()
 async def emojify(ctx,*text):
-    str_text = " ".join(text)
+    str_text = " ".join(text).lower()
     emojified_text = ""
     for letter in str_text:
         if not letter in list("abcdefghijklmnopqrstuvwxyz"):
