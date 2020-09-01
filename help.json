@@ -1,5 +1,5 @@
 {
-	"Utilities": {
+	":tools:Utilities": {
 		"rollDice": {
 			"syntax": [
 				"<number_of_dice>",
@@ -19,6 +19,36 @@
 			],
 			"usage": "get the profile picture (pfp) of user_for_avatar for however many users are specified or the user who requested"
 		},
+		"echo": {
+			"syntax": [
+				"<text>"
+			],
+			"usage": "echos <text>"
+		}
+	},
+	":question: Information": {
+		"kraken": {
+			"syntax": [],
+			"usage": "print \"I am the one, the only kraken\""
+		},
+		"help": {
+			"syntax": [],
+			"usage": "print this help message. for developers, the help message is defined in help.json."
+		},
+		"git": {
+			"syntax": [],
+			"usage": "Show GitHub repository"
+		},
+		"changelog": {
+			"syntax": ["*number_of_commits"],
+			"usage": "show changelog (directly from git!). includes links to commits on github"
+		},
+		"uptime": {
+			"syntax": [],
+			"usage": "prints how long the bot has been running in its current instance"
+		}
+	},
+	":x: Administration": {
 		"kick": {
 			"syntax": [
 				"<user>",
@@ -33,12 +63,6 @@
 			],
 			"usage": "ban <user> if the person running the command has the correct permissions"
 		},
-		"echo": {
-			"syntax": [
-				"<text>"
-			],
-			"usage": "echos <text>"
-		},
 		"disableDM": {
 			"syntax": [],
 			"usage": "disables DMs when someone joins the server"
@@ -48,29 +72,7 @@
 			"usage": "enables DMs when someone joins the server"
 		}
 	},
-	"Information": {
-		"kraken": {
-			"syntax": [],
-			"usage": "print \"I am the one, the only kraken\""
-		},
-		"help": {
-			"syntax": [],
-			"usage": "print this help message. for developers, the help message is defined in help.json."
-		},
-		"git": {
-			"syntax": [],
-			"usage": "Show GitHub repository"
-		},
-		"changelog": {
-			"syntax": ["[number of commits]"],
-			"usage": "show changelog (directly from git!). includes links to commits on github"
-		},
-		"uptime": {
-			"syntax": [],
-			"usage": "prints how long the bot has been running in its current instance"
-		}
-	},
-	"Fun": {
+	":rofl: Fun": {
 		"emojify": {
 			"syntax": ["<text>"],
 			"usage": "turns text into emojis"
