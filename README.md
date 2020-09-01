@@ -17,3 +17,7 @@ This is an example of a poll that Kraken can make.
 ## How do I use it?
 
 Run k!help. It'll tell you everything there is to know about all of the commands.
+
+## I hate github! do you have gitlab?
+
+[Yes.](https://gitlab.com/Vresod/KrakenBot)
