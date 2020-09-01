@@ -287,6 +287,7 @@ async def emojify(ctx,*text):
             continue
         emojified_text += f":regional_indicator_{letter.lower()}:"
     await ctx.send(emojified_text)
+
 # inserts clap emojis between every word
 @client.command()
 async def clapify(ctx, *text):
@@ -296,6 +297,11 @@ async def clapify(ctx, *text):
     else:
         str_text = " :clap: ".join(text)
     await ctx.send(str_text)
+
+# converts normal text to UPPERCASE TEXT
+@client.command()
+async def uppercaseify(ctx, *text):
+    await ctx.send("".join(text).upper())
 
 ###########
 # RUN BOT #

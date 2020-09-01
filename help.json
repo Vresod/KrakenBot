@@ -80,6 +80,10 @@
 		"clapify": {
 			"syntax": ["<text>"],
 			"usage": "put :clap: emojis around text"
+		},
+		"uppercaseify": {
+			"syntax": ["<text>"],
+			"usage": "MAKE EVERYTHING UPPERCASE"
 		}
 	}
 }
