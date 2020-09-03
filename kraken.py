@@ -301,7 +301,7 @@ async def clapify(ctx, *text):
 # converts normal text to UPPERCASE TEXT
 @client.command()
 async def uppercaseify(ctx, *text):
-    await ctx.send("".join(text).upper())
+    await ctx.send(" ".join(text).upper())
 
 ###########
 # RUN BOT #
