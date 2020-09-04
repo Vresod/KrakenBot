@@ -61,6 +61,25 @@ for category in jsonhelp:
         name=category, value=help_message_list[len(help_message_list) - 1])
 
 
+with open("disable_DM_checks.json", "r+") as dm_checks:
+    dmJSON = json.loads(dm_checks.read())
+dmembed = discord.Embed(title="DM on join") 
+#for foo in dmJSON:
+#    fieldEnabled = ""
+#    print(foo)
+#    for checks in dmJSON[foo]:
+#        print(checks)
+#        # i have a solution
+#        dmSW = dmJSON
+#        if dmJSON[foo][checks] == 1:
+#            print("fuck you")
+#        elif dmJSON[foo][checks] == 0:
+#            print("FUCK YOU")
+#    fieldEnabled += f"**{dmSW}\n"
+#    list_dm.append(fieldEnabled)
+#    dmembed.add_field(
+#        name="test", value=dmSW)
+
 # Changelog code.
 # this little snippet gets the 5 latest commits of this repo
 # and puts them in an embed
@@ -104,8 +123,9 @@ DMsEnabled = True
 # if it isn't then it wont do anything
 @client.event
 async def on_member_join(member):
-    if DMsEnabled == False:
-        return
+    if str(member.guild.id) in dmJSON: # detect if theres a value set for
+        if not dmJSON[str(member.guild.id)]: # if its set to not DM members of the guild
+            return
     await member.create_dm()
     await member.dm_channel.send(
         f'Hi {member.name}, I am the kraken.'
@@ -185,27 +205,29 @@ async def git(ctx):
 # disables dms
 @client.command()
 async def disableDM(ctx):
-    if DMsEnabled == False: 
-        return
-    else:
-        warn_embed = discord.Embed(
-            title="WARNING!",
-            description="Kraken will NOW STOP DMing everyone who joins this guild"
-        )
-        await ctx.send(embed=warn_embed)    
+    dmJSON[str(ctx.guild.id)] = False
+    prefixesfile = open("disable_DM_checks.json","w")
+    prefixesfile.write(json.dumps(dmJSON))
+    prefixesfile.close()
+    warn_embed = discord.Embed(
+        title="WARNING!",
+        description="Kraken will NOW STOP DMing everyone who joins this guild"
+    )
+    await ctx.send(embed=warn_embed)    
 
 
 # enables dms
 @client.command()
 async def enableDM(ctx):
-    if DMsEnabled == True:
-        return
-    else:
-        warn_embed = discord.Embed(
-            title="WARNING!",
-            description="Kraken will NOW DM everyone who joins this guild"
-        )
-        await ctx.send(embed=warn_embed)
+    dmJSON[str(ctx.guild.id)] = True
+    prefixesfile = open("disable_DM_checks.json","w")
+    prefixesfile.write(json.dumps(dmJSON))
+    prefixesfile.close()
+    warn_embed = discord.Embed(
+        title="WARNING!",
+        description="Kraken will NOW DM everyone who joins this guild"
+    )
+    await ctx.send(embed=warn_embed)
 
 # kicks the user specified and also dm's them
 @client.command()
@@ -302,6 +324,11 @@ async def clapify(ctx, *text):
 @client.command()
 async def uppercaseify(ctx, *text):
     await ctx.send("".join(text).upper())
+
+#placeholder command
+@client.command()
+async def placeholder(ctx):
+    await ctx.send(embed=dmembed)
 
 ###########
 # RUN BOT #
