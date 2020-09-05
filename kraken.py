@@ -131,6 +131,13 @@ async def on_member_join(member):
         f'Hi {member.name}, I am the kraken.'
     )
 
+# on message event
+@client.event
+async def on_message(message):
+    if message.content == "carl bot is better":
+        msg = await message.channel.send("carl bot is ***bloat***")
+        await msg.add_reaction(u"\U0001F44D")
+    await client.process_commands(message)
 
 #####################
 ####  COMAMANDS  ####
@@ -325,10 +332,6 @@ async def clapify(ctx, *text):
 async def uppercaseify(ctx, *text):
     await ctx.send(" ".join(text).upper())
 
-#placeholder command
-@client.command()
-async def placeholder(ctx):
-    await ctx.send(embed=dmembed)
 
 ###########
 # RUN BOT #
