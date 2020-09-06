@@ -11,7 +11,10 @@ from subprocess import check_output
 from sys import argv as cliargs
 from datetime import datetime
 
+### Variables
+
 t0 = datetime.now()
+#slursENABLED = True
 
 prefix = ""
 for parameter in cliargs:
@@ -59,7 +62,6 @@ for category in jsonhelp:
     help_message_list.append(field_text)
     help_embed.add_field(
         name=category, value=help_message_list[len(help_message_list) - 1])
-
 
 with open("disable_DM_checks.json", "r+") as dm_checks:
     dmJSON = json.loads(dm_checks.read())
@@ -112,7 +114,7 @@ async def on_ready():
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
     print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=8&scope=bot")
-
+    
 # variable for if DMs are enabled or not
 DMsEnabled = True
 
@@ -137,6 +139,20 @@ async def on_message(message):
     if message.content == "carl bot is better":
         msg = await message.channel.send("carl bot is ***bloat***")
         await msg.add_reaction(u"\U0001F44D")
+    if slursENABLED == False:
+        print("fuck")
+    if slursENABLED == True:
+        slurs = open("slurs.txt", "r")
+        slurs_read = slurs.read()
+        slurs_arr = slurs_read.split(",")
+        for i in range(len(slurs_arr)):
+            if message.content == slurs_arr[i]:
+                await message.delete()
+                msg_remove_embed = discord.Embed(
+                    title="Message removed",
+                    description="Please, don't do send that word/phrase"
+                )
+                await message.channel.send(embed=msg_remove_embed)
     await client.process_commands(message)
 
 #####################
@@ -332,6 +348,31 @@ async def clapify(ctx, *text):
 async def uppercaseify(ctx, *text):
     await ctx.send(" ".join(text).upper())
 
+
+# This part of code can toggle slur checking or not
+
+# this function is complete garbage
+# i do not recommend reading it.
+@client.command()
+async def disableSlur(ctx):
+    slursENABLED = False
+    slur_embed = discord.Embed(
+        title="Disabling Slur Checking.",
+        description=f"**Is it enabled?** {slursENABLED}"
+    )
+    await ctx.send(embed=slur_embed)
+
+@client.command()
+async def enableSlur(ctx):
+    slursENABLED = True
+    slur_embed_2 = discord.Embed(
+        title="Enabled slurs.",
+        description=f"**Is it enabled?** {slursENABLED}"
+    )
+    await ctx.send(embed=slur_embed_2)
+
+
+slursENABLED = True
 
 ###########
 # RUN BOT #
