@@ -14,7 +14,6 @@ from datetime import datetime
 ### Variables
 
 t0 = datetime.now()
-#slursENABLED = True
 
 prefix = ""
 for parameter in cliargs:
@@ -134,14 +133,20 @@ async def on_member_join(member):
     )
 
 # on message event
+
+# i litterally have to put the 
+# variable here else it wont fucking
+# work
+slursENABLED = True
+
+# save me from this nightmare
+# please help me
 @client.event
 async def on_message(message):
     if message.content == "carl bot is better":
         msg = await message.channel.send("carl bot is ***bloat***")
         await msg.add_reaction(u"\U0001F44D")
-    if slursENABLED == False:
-        print("fuck")
-    if slursENABLED == True:
+    if message.content == "k!enableSlur":
         slurs = open("slurs.txt", "r")
         slurs_read = slurs.read()
         slurs_arr = slurs_read.split(",")
@@ -153,6 +158,9 @@ async def on_message(message):
                     description="Please, don't do send that word/phrase"
                 )
                 await message.channel.send(embed=msg_remove_embed)
+    elif message.content == "k!disableSlur":
+        return
+    print(slursENABLED)
     await client.process_commands(message)
 
 #####################
@@ -354,7 +362,7 @@ async def uppercaseify(ctx, *text):
 # this function is complete garbage
 # i do not recommend reading it.
 @client.command()
-async def disableSlur(ctx):
+async def placeholder(ctx):
     slursENABLED = False
     slur_embed = discord.Embed(
         title="Disabling Slur Checking.",
@@ -372,7 +380,7 @@ async def enableSlur(ctx):
     await ctx.send(embed=slur_embed_2)
 
 
-slursENABLED = True
+#slursENABLED = True
 
 ###########
 # RUN BOT #
