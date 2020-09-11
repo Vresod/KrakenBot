@@ -171,7 +171,8 @@ async def on_message(message):
 # based
 @client.command()
 async def kraken(ctx):
-    await ctx.send("I am the one, the only kraken")
+    krakenMsg = "I am the one, the only kraken" if client.user.id == 748929084331130962 else "Im fake kraken"
+    await ctx.send(krakenMsg)
 
 # this command is basically making you able to roll some die
 # example:
