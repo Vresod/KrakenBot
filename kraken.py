@@ -113,6 +113,8 @@ async def on_ready():
     game = discord.Game("in the ocean")
     await client.change_presence(status=discord.Status.online, activity=game)
     print(f"https://discord.com/oauth2/authorize?client_id={client.user.id}&permissions=8&scope=bot")
+    for guild in client.guilds:
+        print(f"In guild: {guild.name}") 
     
 # variable for if DMs are enabled or not
 DMsEnabled = True
@@ -132,6 +134,9 @@ async def on_member_join(member):
         f'Hi {member.name}, I am the kraken.'
     )
 
+@client.event
+async def on_guild_join(guild):
+    print(f"Joined guild: {guild.name}")
 # on message event
 
 # i litterally have to put the 
@@ -160,7 +165,6 @@ async def on_message(message):
                 await message.channel.send(embed=msg_remove_embed)
     elif message.content == "k!disableSlur":
         return
-    print(slursENABLED)
     await client.process_commands(message)
 
 #####################
