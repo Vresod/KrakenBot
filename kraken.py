@@ -5,6 +5,7 @@ import discord
 import random
 import os
 import json
+import praw
 from asyncio import sleep as asyncsleep
 from discord.ext import commands
 from subprocess import check_output
@@ -64,7 +65,11 @@ for category in jsonhelp:
 
 with open("disable_DM_checks.json", "r+") as dm_checks:
     dmJSON = json.loads(dm_checks.read())
-dmembed = discord.Embed(title="DM on join") 
+dmembed = discord.Embed(title="DM on join")
+
+# praw
+reddit = praw.Reddit("bot")
+
 #for foo in dmJSON:
 #    fieldEnabled = ""
 #    print(foo)
@@ -372,6 +377,13 @@ async def uppercaseify(ctx, *text):
 
 
 #slursENABLED = True
+
+# reddit stuff
+@client.command()
+async def redditbrowse(ctx, sub, limit: int):
+    subr = reddit.subreddit(sub)
+    for submission in subr.hot(limit=limit):
+        await ctx.send(submission.url)
 
 ###########
 # RUN BOT #
