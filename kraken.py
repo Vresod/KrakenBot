@@ -377,13 +377,57 @@ async def uppercaseify(ctx, *text):
 
 
 #slursENABLED = True
-
+ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
 # reddit stuff
 @client.command()
-async def redditbrowse(ctx, sub, limit: int):
-    subr = reddit.subreddit(sub)
-    for submission in subr.hot(limit=limit):
-        await ctx.send(submission.url)
+async def redditbrowse(ctx, sub, limit: int, sublist): # a lot of this code was ripped straight from Vresod/reddit-bot
+    subreddit = reddit.subreddit(sub)
+    number = 1
+    if sublist == "hot":
+        listing = subreddit.hot
+    elif sublist == "top":
+        listing = subreddit.top
+    elif sublist == "new":
+        listing = subreddit.new
+    elif sublist == "random":
+        listing = subreddit.random_rising
+    elif sublist == "rising":
+        listing = subreddit.rising
+    elif sublist == "controversial":
+        listing = subreddit.controversial
+    stickiedposts = 0
+    for stickytest in listing(limit=2):
+        if(stickytest.stickied):
+            stickiedposts += 1
+    for submission in listing(limit=limit + stickiedposts):
+        if(submission.stickied):
+            continue
+        if submission.is_self:
+            if(len(submission.selftext) > 2048): # dealing with the limit on embedded text
+                content = submission.selftext[:2045] + "..."
+            else:
+                content = submission.selftext
+        else:
+            content = submission.url
+        if submission.over_18 and not ctx.channel.is_nsfw():
+            await ctx.send("NSFW post and non-nsfw channel. try again in nsfw channel")
+            continue
+        else:
+            if len(submission.title) > 256:
+                san_title = submission.title[:253] + "..."
+            else:
+                san_title = submission.title
+            embed = discord.Embed(
+                    title=san_title,
+                    url=submission.shortlink
+            )
+            embed.set_footer(text=f"posted by u/{submission.author}")
+            if submission.is_self:
+                embed.description = content
+            else:
+                embed.set_image(url=content)
+        await ctx.send(f"{ordinal(number)} {sublist} post from r/{submission.subreddit}:",embed=embed)
+        number += 1
 
 ###########
 # RUN BOT #
