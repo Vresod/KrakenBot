@@ -86,7 +86,7 @@
 			"usage": "MAKE EVERYTHING UPPERCASE"
 		},
 		"redditbrowse": {
-			"syntax": ["<sub>","<limit>","<listing>"],
+			"syntax": ["<sub>","[limit]","[listing]"],
 			"usage": "browse reddit via kraken"
 		}
 	}

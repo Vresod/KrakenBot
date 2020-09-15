@@ -380,7 +380,7 @@ async def uppercaseify(ctx, *text):
 ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
 # reddit stuff
 @client.command()
-async def redditbrowse(ctx, sub, limit: int, sublist): # a lot of this code was ripped straight from Vresod/reddit-bot
+async def redditbrowse(ctx, sub, limit: int = 5, sublist = "hot"): # a lot of this code was ripped straight from Vresod/reddit-bot
     subreddit = reddit.subreddit(sub)
     number = 1
     if sublist == "hot":
