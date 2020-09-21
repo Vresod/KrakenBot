@@ -89,7 +89,7 @@ reddit = praw.Reddit("bot")
 # Changelog code.
 # this little snippet gets the 5 latest commits of this repo
 # and puts them in an embed
-out = check_output("git log -5 --pretty=%s|%h".split(" "))
+out = check_output("git log -25 --pretty=%s|%h".split(" "))
 log = out.decode("utf-8").split("\n")
 log.remove('')
 logs = []
@@ -296,17 +296,13 @@ async def echo(ctx,*text):
 # the changelog command.
 @client.command()
 async def changelog(ctx, num=5):
-    out = check_output(f"git log -{num} --pretty=%s|%h".split(" "))
-    log = out.decode("utf-8").split("\n")
-    log.remove('')
-    logs = []
-    for cmessage in log:
-        logs.append(cmessage.split("|"))
     logmsg = ""
+    global logs
+    logs = logs[:num]
     for commitpair in logs:
         logmsg += f"[{commitpair[0]}](https://github.com/AVCADO/KrakenBot/commit/{commitpair[1]})\n"
     if len(logmsg) > 2048:
-        logmsg = "message too long; go to [https://github.com/AVCADO/KrakenBot/commits/master](https://github.com/AVCADO/KrakenBot/commits/master)"
+        logmsg = "message too long; go to [https://github.com/AVCADO/KrakenBot/commits/master](https://github.com/AVCADO/KrakenBot/commits/master)" # replace with upstream url
     embed_change = discord.Embed(
         title="Changelog",
         description=logmsg
