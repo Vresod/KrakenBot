@@ -404,7 +404,14 @@ async def redditbrowse(ctx, sub, limit: int = 5, sublist = "hot"): # a lot of th
             else:
                 content = submission.selftext
         else:
-            content = submission.url
+            try:
+                is_gallery = submission.is_gallery
+            except:
+                is_gallery = False
+            if not is_gallery:
+                content = submission.url
+            else:
+                content = "Gallery posts are currently not supported. Use the above link to view the post on reddit."
         if submission.over_18 and not ctx.channel.is_nsfw():
             await ctx.send("NSFW post and non-nsfw channel. try again in nsfw channel")
             continue
@@ -418,7 +425,7 @@ async def redditbrowse(ctx, sub, limit: int = 5, sublist = "hot"): # a lot of th
                     url=submission.shortlink
             )
             embed.set_footer(text=f"posted by u/{submission.author}")
-            if submission.is_self:
+            if submission.is_self or is_gallery:
                 embed.description = content
             else:
                 embed.set_image(url=content)
