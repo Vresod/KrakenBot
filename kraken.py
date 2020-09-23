@@ -432,6 +432,22 @@ async def redditbrowse(ctx, sub, limit: int = 5, sublist = "hot"): # a lot of th
         await ctx.send(f"{ordinal(number)} {sublist} post from r/{submission.subreddit}:",embed=embed)
         number += 1
 
+@client.command()
+async def addemoji(ctx,*emojiname):
+    failureEmbed = discord.Embed(title="Mission Failed",description="We\'ll get em\' next time.")
+    if(not ctx.message.author.permissions_in(ctx.channel).manage_emojis):
+        await ctx.send(embed=failureEmbed)
+        return
+    if len(ctx.guild.emojis) >= ctx.guild.emoji_limit:
+        await ctx.send("The emoji limit is full. Remove some emojis and try again.")
+        return
+    if len(ctx.message.attachments) == 0:
+        await ctx.send("You need to provide an image.")
+        return
+    real_emojiname = "_".join(emojiname)
+    custom_emoji = await ctx.guild.create_custom_emoji(name=real_emojiname,image=await ctx.message.attachments[0].read())
+    await ctx.send(f"<:{custom_emoji.name}:{custom_emoji.id}> added as :{custom_emoji.name}:. enjoy!")
+
 ###########
 # RUN BOT #
 ###########
