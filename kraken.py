@@ -200,8 +200,12 @@ async def poll(ctx, *criterion):
 async def pfp(ctx, *user_for_avatar):
     avatar_users = []
     pfp_urls = []
-    for user in ctx.message.mentions:
-        avatar_users.append(user)
+    if ctx.message.mention_everyone:
+        for user in ctx.guild.members:
+            avatar_users.append(user)
+    else:
+        for user in ctx.message.mentions:
+            avatar_users.append(user)
     #avatar_user = ctx.author if len(ctx.message.mentions) == 0 else ctx.message.mentions[0]
     avatar_users = [ctx.author] if len(avatar_users) == 0 else avatar_users
     for user in avatar_users:
