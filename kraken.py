@@ -153,7 +153,7 @@ slursENABLED = True
 # please help me
 @client.event
 async def on_message(message):
-    if message.content == "carl bot is better":
+    if "carl bot is better" in message.content:
         msg = await message.channel.send("carl bot is ***bloat***")
         await msg.add_reaction(u"\U0001F44D")
     await client.process_commands(message)
