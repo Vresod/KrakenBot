@@ -144,11 +144,6 @@ async def on_guild_join(guild):
     print(f"Joined guild: {guild.name}")
 # on message event
 
-# i litterally have to put the 
-# variable here else it wont fucking
-# work
-slursENABLED = True
-
 # save me from this nightmare
 # please help me
 @client.event
@@ -352,31 +347,6 @@ async def clapify(ctx, *text):
 async def uppercaseify(ctx, *text):
     await ctx.send(" ".join(text).upper())
 
-
-# # This part of code can toggle slur checking or not
-
-# # this function is complete garbage
-# # i do not recommend reading it.
-# @client.command()
-# async def placeholder(ctx):
-#     slursENABLED = False
-#     slur_embed = discord.Embed(
-#         title="Disabling Slur Checking.",
-#         description=f"**Is it enabled?** {slursENABLED}"
-#     )
-#     await ctx.send(embed=slur_embed)
-
-# @client.command()
-# async def enableSlur(ctx):
-#     slursENABLED = True
-#     slur_embed_2 = discord.Embed(
-#         title="Enabled slurs.",
-#         description=f"**Is it enabled?** {slursENABLED}"
-#     )
-#     await ctx.send(embed=slur_embed_2)
-
-
-#slursENABLED = True
 ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(n//10%10!=1)*(n%10<4)*n%10::4])
 # reddit stuff
 @client.command()
