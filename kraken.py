@@ -2,7 +2,7 @@
 
 # Imports used for kraken bot to work properly
 
-# hello im avcado and i approve this message
+# hello im torvalds and i approve this message
 import discord
 import random
 import os
