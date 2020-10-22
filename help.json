@@ -95,6 +95,10 @@
 		"redditbrowse": {
 			"syntax": ["<sub>","[limit]","[listing]"],
 			"usage": "browse reddit via kraken"
+		},
+		"echoas": {
+			"syntax": ["<person>","<*text>"],
+			"usage": "echo as another person"
 		}
 	}
 }

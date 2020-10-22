@@ -424,6 +424,19 @@ async def addemoji(ctx,*emojiname):
 	custom_emoji = await ctx.guild.create_custom_emoji(name=real_emojiname,image=await ctx.message.attachments[0].read())
 	await ctx.send(f"<:{custom_emoji.name}:{custom_emoji.id}> added as :{custom_emoji.name}:. enjoy!")
 
+@client.command()
+async def echoas(ctx,person,*text):
+	msg = " ".join(text)
+	imitated = ctx.message.mentions[0]
+	avatar = await imitated.avatar_url_as(format="png").read()
+	confirm_message = await ctx.send(f"imitating {ctx.message.mentions[0].name}: {msg}")
+	hook = await ctx.channel.create_webhook(name=imitated.display_name,avatar=avatar)
+	await ctx.message.add_reaction(u"\U00002705")
+	await hook.send(f"{msg}")
+	await hook.delete()
+	await asyncsleep(3)
+	await confirm_message.delete()
+
 ###########
 # RUN BOT #
 ###########
