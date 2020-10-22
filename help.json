@@ -99,6 +99,10 @@
 		"echoas": {
 			"syntax": ["<person>","<*text>"],
 			"usage": "echo as another person"
+		},
+		"interject": {
+			"syntax": [],
+			"usage": "I'd just like to interject for a moment."
 		}
 	}
 }
