@@ -106,6 +106,8 @@ embed_change = discord.Embed(
 	description=logmsg
 )
 
+with open("interjection","r") as interjection_raw: interjection = interjection_raw.read()
+
 #################
 ####  EVENT  ####
 #################
@@ -436,6 +438,10 @@ async def echoas(ctx,person,*text):
 	await hook.delete()
 	await asyncsleep(3)
 	await confirm_message.delete()
+
+@client.command()
+async def interject(ctx):
+	await ctx.send(interjection)
 
 ###########
 # RUN BOT #
