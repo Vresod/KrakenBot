@@ -103,6 +103,10 @@
 		"interject": {
 			"syntax": [],
 			"usage": "I'd just like to interject for a moment."
+		},
+		"iscringe": {
+			"syntax": [],
+			"usage": "previous message is cringe"
 		}
 	}
 }

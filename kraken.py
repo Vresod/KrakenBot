@@ -443,6 +443,14 @@ async def echoas(ctx,person,*text):
 async def interject(ctx):
 	await ctx.send(interjection)
 
+@client.command()
+async def iscringe(ctx):
+	async for message in ctx.channel.history(limit=2):
+		if(message == ctx.message):
+			continue
+		previous_message = message
+	await ctx.send(f"saying \"{previous_message.content}\" is cringe")
+
 ###########
 # RUN BOT #
 ###########
