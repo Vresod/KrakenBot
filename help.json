@@ -53,6 +53,10 @@
 		"uptime": {
 			"syntax": [],
 			"usage": "prints how long the bot has been running in its current instance"
+		},
+		"license": {
+			"syntax": [],
+			"usage": "show the license for kraken as shown on the github"
 		}
 	},
 	":x: Administration": {

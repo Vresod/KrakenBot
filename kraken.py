@@ -107,6 +107,7 @@ embed_change = discord.Embed(
 )
 
 with open("interjection","r") as interjection_raw: interjection = interjection_raw.read()
+with open("LICENSE","r") as license_raw: license = license_raw.read()
 
 #################
 ####  EVENT  ####
@@ -165,7 +166,7 @@ async def on_message(message):
 # based
 @client.command()
 async def kraken(ctx):
-	krakenMsg = "I am the one, the only kraken" if client.user.id == 748929084331130962 else "Im fake kraken"
+	krakenMsg = "I am the one, the only kraken" if client.user.id == 748960748935446588 else "Im fake kraken"
 	await ctx.send(krakenMsg)
 
 # this command is basically making you able to roll some die
@@ -442,6 +443,10 @@ async def echoas(ctx,person,*text):
 @client.command()
 async def interject(ctx):
 	await ctx.send(interjection)
+
+@client.command()
+async def license(ctx):
+	await ctx.send(license)
 
 @client.command()
 async def iscringe(ctx):
