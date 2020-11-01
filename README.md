@@ -4,7 +4,7 @@ An open source bot for Discord.
 
 ## What does it do?
 
-![Image](.github/readme_img_0.png)
+![Image](.github/poll.png)
 
 This is an example of a poll that Kraken can make.
 

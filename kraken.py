@@ -107,7 +107,7 @@ embed_change = discord.Embed(
 )
 
 with open("interjection","r") as interjection_raw: interjection = interjection_raw.read()
-with open("LICENSE","r") as license_raw: license = license_raw.read()
+with open("LICENSE","r") as license_raw: licensetext = license_raw.read()
 
 #################
 ####  EVENT  ####
@@ -446,7 +446,7 @@ async def interject(ctx):
 
 @client.command()
 async def license(ctx):
-	await ctx.send(license)
+	await ctx.send(licensetext)
 
 @client.command()
 async def iscringe(ctx):
